@@ -78,7 +78,7 @@ end
 
 problem1_valid = 0
 problem2_valid = 0
-File.read(File.join(__DIR__, "data", "day_04.txt")).split("\n\n").each do |credentials|
+File.read(File.join(__DIR__, "..", "data", "day_04.txt")).split("\n\n").each do |credentials|
   credentials = credentials.split("\n").join(" ").split(" ").reject { |x| x == "" }
   passport = Passport.new(credentials)
   problem1_valid += 1 if passport.attributes_present?

@@ -30,7 +30,7 @@ class Group
   end
 end
 
-answer_file = AnswerFile.new(File.join(__DIR__, "data", "day_06.txt"))
+answer_file = AnswerFile.new(File.join(__DIR__, "..", "data", "day_06.txt"))
 
 puts answer_file.groups.map { |group| group.unique_answers.size }.sum
 puts answer_file.groups.map { |group| group.common_answers.size }.sum

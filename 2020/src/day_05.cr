@@ -17,7 +17,7 @@ end
 
 max_seat_id = 0
 seat_ids = Array(Int32).new
-File.each_line(File.join(__DIR__, "data", "day_05.txt")) do |code|
+File.each_line(File.join(__DIR__, "..", "data", "day_05.txt")) do |code|
   row_code, col_code = code[0..-4], code[-3..-1]
 
   row = search(0, 128, row_code)

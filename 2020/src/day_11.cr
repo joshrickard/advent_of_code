@@ -112,7 +112,7 @@ end
 class AdjacentSeatLayout < SeatLayout
   def nearby_seats_empty?(p : Point) : Bool
     # Check surrounding tile states
-    DELTAS_BY_DIRECTION.keys.all? do |direction|
+    Direction.values.all? do |direction|
       delta = DELTAS_BY_DIRECTION[direction]
       adjacent_point = {x: p[:x] + delta[:x], y: p[:y] + delta[:y]}
       invalid?(adjacent_point) || !get_tile_state(adjacent_point).occupied?
@@ -121,7 +121,7 @@ class AdjacentSeatLayout < SeatLayout
 
   def nearby_seats_occupied(p : Point) : Int32
     # Check surrounding tile states
-    DELTAS_BY_DIRECTION.keys.count do |direction|
+    Direction.values.count do |direction|
       delta = DELTAS_BY_DIRECTION[direction]
       adjacent_point = {x: p[:x] + delta[:x], y: p[:y] + delta[:y]}
       valid?(adjacent_point) && get_tile_state(adjacent_point).occupied?
@@ -135,7 +135,7 @@ end
 
 class VisibleSeatLayout < SeatLayout
   def nearby_seats_empty?(p : Point) : Bool
-    DELTAS_BY_DIRECTION.keys.all? do |direction|
+    Direction.values.all? do |direction|
       empty = true
 
       projected_tile_states(p, direction) do |visible_point, tile_state|
@@ -149,7 +149,7 @@ class VisibleSeatLayout < SeatLayout
   end
 
   def nearby_seats_occupied(p : Point) : Int32
-    DELTAS_BY_DIRECTION.keys.count do |direction|
+    Direction.values.count do |direction|
       occupied = false
 
       projected_tile_states(p, direction) do |visible_point, tile_state|

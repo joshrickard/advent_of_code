@@ -5,26 +5,25 @@ module Day13
     def self.parse(file_path : String) : Tuple(Int64, Schedule)
       departure_time, buses = File.read(file_path).split("\n")
 
+      results = Array(Bus).new
+      buses.split(",").map_with_index do |id, i|
+        next if id == "x"
+
+        results << Bus.new(id.to_i64, i.to_i64)
+      end
+
       {
         departure_time.to_i64,
-        Schedule.new(
-          buses.split(",").map do |id|
-            if id == "x"
-              Bus.new(-1_i64, true)
-            else
-              Bus.new(id.to_i64, false)
-            end
-          end
-        ),
+        Schedule.new(results),
       }
     end
   end
 
   class Bus
     getter id : Int64
-    getter wildcard : Bool
+    getter index : Int64
 
-    def initialize(@id, @wildcard)
+    def initialize(@id, @index)
     end
 
     def next_departure(time : Int64) : Int64
@@ -49,16 +48,14 @@ module Day13
     def initialize(@buses)
     end
 
-    def first_sequential_time : Int64
+    def first_sequential_time(t : Int64 = 0) : Int64
       i = 0_i64
-      t = buses.first.id
+      t = buses.first.next_departure(t)
       loop do
-        puts t.format if i % 1_000_000 == 0
+        puts t.format if i % 100_000_000 == 0
         found = true
-        buses.each_with_index do |bus, i|
-          next if bus.id == 0 || bus.wildcard?
-
-          if bus.next_departure(t) != t + i
+        buses.each do |bus|
+          if bus.next_departure(t) != t + bus.index
             found = false
             break
           end
@@ -72,8 +69,7 @@ module Day13
     end
 
     def next_departing_bus(departure_time : Int64) : Bus
-      buses.select { |b| !b.wildcard }
-        .min_by { |b| b.next_departure(departure_time) }
+      buses.min_by { |b| b.next_departure(departure_time) }
     end
   end
 end

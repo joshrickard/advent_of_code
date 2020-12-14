@@ -6,7 +6,7 @@ module Day13
       departure_time, buses = File.read(file_path).split("\n")
 
       results = Array(Bus).new
-      buses.split(",").map_with_index do |id, i|
+      buses.split(",").each_with_index do |id, i|
         next if id == "x"
 
         results << Bus.new(id.to_i64, i.to_i64)
@@ -35,10 +35,6 @@ module Day13
 
     def wait_time(time : Int64) : Int64
       next_departure(time) - time
-    end
-
-    def wildcard? : Bool
-      wildcard
     end
   end
 

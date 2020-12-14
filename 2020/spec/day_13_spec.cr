@@ -84,13 +84,13 @@ describe Day13 do
       end
     end
 
-    describe "solution" do
-      it "returns the expected number of occupied seats" do
-        file_path = Data.input_file_path(13)
-        departure_time, schedule = Day13::ScheduleParser.parse(file_path)
-        t = schedule.first_sequential_time(100_000_000_000_000)
-        t.should eq 0
-      end
-    end
+    # describe "solution" do
+    #   it "returns the expected number of occupied seats" do
+    #     file_path = Data.input_file_path(13)
+    #     departure_time, schedule = Day13::ScheduleParser.parse(file_path)
+    #     t = schedule.first_sequential_time(100_000_000_000_000)
+    #     t.should eq 0
+    #   end
+    # end
   end
 end

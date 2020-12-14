@@ -45,22 +45,29 @@ module Day13
     end
 
     def first_sequential_time(t : Int64 = 0) : Int64
-      i = 0_i64
-      t = buses.first.next_departure(t)
+      bus_with_largest_interval = buses.max_by { |b| b.id }
+
+      t = bus_with_largest_interval.next_departure(t)
+
+      puts
+      puts "t=#{t} step_size=#{bus_with_largest_interval.id} offset=#{bus_with_largest_interval.index}"
+
+      loop_counter = 0_i64
       loop do
-        puts t.format if i % 100_000_000 == 0
+        puts t.format if loop_counter % 100_000_000 == 0
         found = true
         buses.each do |bus|
-          if bus.next_departure(t) != t + bus.index
+          t_first_bus = t - bus_with_largest_interval.index
+          if bus.next_departure(t_first_bus) != t_first_bus + bus.index
             found = false
             break
           end
         end
 
-        return t if found
+        return t - bus_with_largest_interval.index if found
 
-        i += 1
-        t += buses.first.id
+        loop_counter += 1
+        t += bus_with_largest_interval.id
       end
     end
 

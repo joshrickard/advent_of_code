@@ -6,7 +6,7 @@ case $1 in
     ;;
 
   "run")
-    (set -x; crystal run src/${2}/day_${3}.cr -- part${4} )
+    (set -x; crystal run --release src/${2}/day_${3}.cr -- part${4} )
     ;;
 
   "spec")

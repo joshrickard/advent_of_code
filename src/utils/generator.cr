@@ -3,8 +3,8 @@ require "file_utils"
 require "http"
 
 abstract class AdventFile
-  property day_of_month : String
-  property year : String
+  property day_of_month : Int32
+  property year : Int32
 
   def initialize(@day_of_month, @year)
   end
@@ -35,7 +35,7 @@ class InputFile < AdventFile
   end
 
   def remote_file_url : String
-    "https://adventofcode.com/#{year}/day/#{day_of_month.lstrip('0')}/input"
+    "https://adventofcode.com/#{year}/day/#{day_of_month}/input"
   end
 
   def to_s : String
@@ -86,7 +86,7 @@ end
 default_time = Time.local(Time::Location.load("America/New_York"))
 
 year = ARGV.size > 0 ? ARGV[0] : default_time.to_s("%Y")
-day_of_month = ARGV.size > 1 ? ARGV[1] : default_time.to_s("%d")
+day_of_month = ARGV.size > 1 ? ARGV[1] : default_time.to_s("%-d")
 session_cookie = File.read(".session-cookie")
 
 InputFile.new(day_of_month, year, session_cookie).create

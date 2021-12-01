@@ -1,7 +1,7 @@
 # https://adventofcode.com/2021/day/1
 
 module Year2021
-  module Day01
+  module Day1
     class Part1
       def self.run(input : IO)
         input
@@ -29,5 +29,7 @@ module Year2021
   end
 end
 
-# puts Year2021::Day01::Part1.run(File.open("#{__DIR__}/input/day_01.txt"))
-# puts Year2021::Day01::Part2.run(File.open("#{__DIR__}/input/day_01.txt"))
+input = File.open("#{__DIR__}/input/#{File.basename(__FILE__, ".cr")}.txt")
+
+p! Year2021::Day1::Part1.run(input) if ARGV.size.positive? && ARGV.first == "part1"
+p! Year2021::Day1::Part2.run(input) if ARGV.size.positive? && ARGV.first == "part2"

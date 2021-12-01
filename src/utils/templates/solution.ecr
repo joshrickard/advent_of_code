@@ -1,4 +1,4 @@
-# https://adventofcode.com/<%= @year %>/day/<%= @day_of_month.lstrip('0') %>
+# https://adventofcode.com/<%= @year %>/day/<%= @day_of_month %>
 
 module Year<%= @year %>
   module Day<%= @day_of_month%>
@@ -13,3 +13,8 @@ module Year<%= @year %>
     end
   end
 end
+
+input = File.open("#{__DIR__}/input/#{File.basename(__FILE__, ".cr")}.txt")
+
+p! Year<%= @year %>::Day<%= @day_of_month%>::Part1.run(input) if ARGV.size.positive? && ARGV.first == "part1"
+p! Year<%= @year %>::Day<%= @day_of_month%>::Part2.run(input) if ARGV.size.positive? && ARGV.first == "part2"

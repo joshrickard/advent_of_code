@@ -1,0 +1,19 @@
+#!/bin/bash
+
+case $1 in
+  "gen")
+    (set -x; crystal run src/utils/generator.cr -- ${@:2} )
+    ;;
+
+  "run")
+    (set -x; crystal run src/utils/runner.cr -- ${@:2} )
+    ;;
+
+  "spec")
+    ( set -x; crystal spec ${@:2} )
+    ;;
+
+  *)
+    echo "valid commands: `gen`, `spec`"
+    ;;
+esac

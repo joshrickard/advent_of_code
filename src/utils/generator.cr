@@ -50,7 +50,7 @@ class InputFile < AdventFile
   end
 
   private def folder_path : String
-    "#{year}/src/data"
+    "src/#{year}/input"
   end
 
   private def file_path : String
@@ -60,26 +60,26 @@ end
 
 class SolutionFile < AdventFile
   private def folder_path : String
-    "#{year}/src"
+    "src/#{year}"
   end
 
   private def file_path : String
     "#{folder_path}/day_#{day_of_month}.cr"
   end
 
-  ECR.def_to_s "#{__DIR__}/solution.ecr"
+  ECR.def_to_s "#{__DIR__}/templates/solution.ecr"
 end
 
 class SpecFile < AdventFile
   private def folder_path : String
-    "#{year}/spec"
+    "spec/#{year}"
   end
 
   private def file_path : String
     "#{folder_path}/day_#{day_of_month}_spec.cr"
   end
 
-  ECR.def_to_s "#{__DIR__}/spec.ecr"
+  ECR.def_to_s "#{__DIR__}/templates/spec.ecr"
 end
 
 # Solutions are posted at midnight eastern time

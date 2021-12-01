@@ -49,12 +49,12 @@ module Day13
 
       t = bus_with_largest_interval.next_departure(t)
 
-      puts
-      puts "t=#{t} step_size=#{bus_with_largest_interval.id} offset=#{bus_with_largest_interval.index}"
+      # puts
+      # puts "t=#{t} step_size=#{bus_with_largest_interval.id} offset=#{bus_with_largest_interval.index}"
 
       loop_counter = 0_i64
       loop do
-        puts t.format if loop_counter % 100_000_000 == 0
+        # puts t.format if loop_counter % 100_000_000 == 0
         found = true
         buses.each do |bus|
           t_first_bus = t - bus_with_largest_interval.index

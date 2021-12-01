@@ -1,3 +1,5 @@
+require "../utils/runner"
+
 # https://adventofcode.com/2021/day/1
 
 module Year2021
@@ -29,7 +31,7 @@ module Year2021
   end
 end
 
-input = File.open("#{__DIR__}/input/#{File.basename(__FILE__, ".cr")}.txt")
+input_path = "#{__DIR__}/input/#{File.basename(__FILE__, ".cr")}.txt"
 
-p! Year2021::Day1::Part1.run(input) if ARGV.size.positive? && ARGV.first == "part1"
-p! Year2021::Day1::Part2.run(input) if ARGV.size.positive? && ARGV.first == "part2"
+Utils::Runner.run(Year2021::Day1::Part1, input_path) if ARGV.size.positive? && ARGV.first == "part1"
+Utils::Runner.run(Year2021::Day1::Part2, input_path) if ARGV.size.positive? && ARGV.first == "part2"

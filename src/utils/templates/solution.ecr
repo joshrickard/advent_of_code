@@ -1,3 +1,5 @@
+require "../utils/runner"
+
 # https://adventofcode.com/<%= @year %>/day/<%= @day_of_month %>
 
 module Year<%= @year %>
@@ -14,7 +16,7 @@ module Year<%= @year %>
   end
 end
 
-input = File.open("#{__DIR__}/input/#{File.basename(__FILE__, ".cr")}.txt")
+input_path = "#{__DIR__}/input/#{File.basename(__FILE__, ".cr")}.txt"
 
-p! Year<%= @year %>::Day<%= @day_of_month%>::Part1.run(input) if ARGV.size.positive? && ARGV.first == "part1"
-p! Year<%= @year %>::Day<%= @day_of_month%>::Part2.run(input) if ARGV.size.positive? && ARGV.first == "part2"
+Utils::Runner.run(Year<%= @year %>::Day<%= @day_of_month%>::Part1, input_path) if ARGV.size.positive? && ARGV.first == "part1"
+Utils::Runner.run(Year<%= @year %>::Day<%= @day_of_month%>::Part2, input_path) if ARGV.size.positive? && ARGV.first == "part2"

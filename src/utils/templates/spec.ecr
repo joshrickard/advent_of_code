@@ -3,14 +3,14 @@ require "../../src/<%= @year %>/day_<%= @day_of_month %>"
 
 describe Year<%= @year %>::Day<%= @day_of_month %> do
   it "solves part 1" do
-    example = <<-EOS.split.map(&.strip).join("\n")
+    example = <<-EOS
     EOS
     result = Year<%= @year %>::Day<%= @day_of_month %>::Part1.run(IO::Memory.new(example))
     result.should eq("TODO")
   end
 
   it "solves part 2" do
-    example = <<-EOS.split.map(&.strip).join("\n")
+    example = <<-EOS
     EOS
     result = Year<%= @year %>::Day<%= @day_of_month %>::Part2.run(IO::Memory.new(example))
     result.should eq("TODO")

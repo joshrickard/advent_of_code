@@ -85,8 +85,8 @@ end
 # Solutions are posted at midnight eastern time
 default_time = Time.local(Time::Location.load("America/New_York"))
 
-year = ARGV.size > 0 ? ARGV[0] : default_time.to_s("%Y")
-day_of_month = ARGV.size > 1 ? ARGV[1] : default_time.to_s("%-d")
+year = (ARGV.size > 0 ? ARGV[0] : default_time.to_s("%Y")).to_i
+day_of_month = (ARGV.size > 1 ? ARGV[1] : default_time.to_s("%-d")).to_i
 session_cookie = File.read(".session-cookie")
 
 InputFile.new(day_of_month, year, session_cookie).create

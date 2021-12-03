@@ -1,3 +1,4 @@
+require "colorize"
 require "ecr"
 require "file_utils"
 require "http"
@@ -12,8 +13,10 @@ abstract class AdventFile
   def create : Nil
     FileUtils.mkdir_p folder_path
     if File.exists?(file_path) && prevent_overwrite?
-      puts "#{file_path} already exists, skipping"
+      puts "skipping #{file_path} which already exists".colorize(:yellow)
     else
+      action = File.exists?(file_path) ? "overwriting" : "creating"
+      puts "#{action} #{file_path}".colorize(:green)
       File.write(file_path, to_s)
     end
   end

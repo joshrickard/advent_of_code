@@ -1,4 +1,5 @@
 require "benchmark"
+require "colorize"
 
 module Utils
   class Runner
@@ -8,8 +9,10 @@ module Utils
       result = nil
       elapsed = Benchmark.measure { result = problem.run(input) }.real
 
-      puts "#{problem}"
-      puts "=> Result: #{result} Took: #{elapsed * 1000}ms"
+      print "#{problem} -> Result: "
+      print "#{result}".colorize.fore(:white).underline
+      print " Took: #{elapsed * 1000}ms"
+      puts
     end
   end
 end

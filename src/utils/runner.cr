@@ -9,6 +9,7 @@ module Utils
       result = nil
       elapsed = Benchmark.measure { result = problem.run(input) }.real
 
+      puts
       print "#{problem} -> Result: "
       print "#{result}".colorize.fore(:white).underline
       print " Took: #{elapsed * 1000}ms"

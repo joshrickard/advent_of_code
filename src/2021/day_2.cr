@@ -2,95 +2,93 @@ require "../utils/runner"
 
 # https://adventofcode.com/2021/day/2
 
-module Year2021
-  module Day2
-    enum Direction
-      Down
-      Forward
-      Up
-    end
+module Year2021::Day2
+  enum Direction
+    Down
+    Forward
+    Up
+  end
 
-    struct Command
-      property direction : Direction
-      property distance : Int32
+  struct Command
+    property direction : Direction
+    property distance : Int32
 
-      def initialize(@direction, @distance); end
-    end
+    def initialize(@direction, @distance); end
+  end
 
-    class CommandParser
-      include Enumerable(Command)
+  class CommandParser
+    include Enumerable(Command)
 
-      private getter input : IO
+    private getter input : IO
 
-      def initialize(@input); end
+    def initialize(@input); end
 
-      def each(&block)
-        input.each_line do |line|
-          direction, distance = line.split(" ")
+    def each(&block)
+      input.each_line do |line|
+        direction, distance = line.split(" ")
 
-          yield Command.new(Direction.parse(direction), distance.to_i)
-        end
+        yield Command.new(Direction.parse(direction), distance.to_i)
       end
     end
+  end
 
-    class Part1
-      class Position
-        property depth : Int32
-        property horizontal : Int32
+  class Part1
+    class Position
+      property depth : Int32
+      property horizontal : Int32
 
-        def initialize(@depth = 0, @horizontal = 0)
-        end
-      end
-
-      def self.run(input : IO)
-        position = Position.new
-
-        CommandParser.new(input).each do |command|
-          case command.direction
-          when Direction::Down
-            position.depth += command.distance
-          when Direction::Forward
-            position.horizontal += command.distance
-          when Direction::Up
-            position.depth -= command.distance
-          else
-            raise "Unhandled direction: #{command.direction}"
-          end
-        end
-
-        position.depth * position.horizontal
+      def initialize(@depth = 0, @horizontal = 0)
       end
     end
 
-    class Part2
-      class Position
-        property aim : Int32
-        property depth : Int32
-        property horizontal : Int32
+    def self.run(input : IO)
+      position = Position.new
 
-        def initialize(@aim = 0, @depth = 0, @horizontal = 0)
+      CommandParser.new(input).each do |command|
+        case command.direction
+        when Direction::Down
+          position.depth += command.distance
+        when Direction::Forward
+          position.horizontal += command.distance
+        when Direction::Up
+          position.depth -= command.distance
+        else
+          raise "Unhandled direction: #{command.direction}"
         end
       end
 
-      def self.run(input : IO)
-        position = Position.new
+      position.depth * position.horizontal
+    end
+  end
 
-        CommandParser.new(input).each do |command|
-          case command.direction
-          when Direction::Down
-            position.aim += command.distance
-          when Direction::Forward
-            position.depth += position.aim * command.distance
-            position.horizontal += command.distance
-          when Direction::Up
-            position.aim -= command.distance
-          else
-            raise "Unhandled direction: #{command.direction}"
-          end
-        end
+  class Part2
+    class Position
+      property aim : Int32
+      property depth : Int32
+      property horizontal : Int32
 
-        position.depth * position.horizontal
+      def initialize(@aim = 0, @depth = 0, @horizontal = 0)
       end
+    end
+
+    def self.run(input : IO)
+      position = Position.new
+
+      CommandParser.new(input).each do |command|
+        case command.direction
+        when Direction::Down
+          position.aim += command.distance
+        when Direction::Forward
+          position.depth += position.aim * command.distance
+          position.horizontal += command.distance
+        when Direction::Up
+          position.aim -= command.distance
+        else
+          raise "Unhandled direction: #{command.direction}"
+        end
+      end
+
+      position.depth * position.horizontal
     end
   end
 end

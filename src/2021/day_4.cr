@@ -34,11 +34,15 @@ module Year2021::Day4
 
   class BingoCard
     private property last_number : Int32
+    private property last_x : Int32
+    private property last_y : Int32
     private property size : Int32
     private property spots : Array(BingoSpot)
 
     def initialize(@size : Int32 = 5)
       @last_number = 0
+      @last_x = 0
+      @last_y = 0
       @spots = Array(BingoSpot).new
 
       (size * size).times { spots << BingoSpot.new }
@@ -54,6 +58,8 @@ module Year2021::Day4
       spots.each_with_index do |spot, index|
         next unless spot.number == number
 
+        self.last_x = (index % size).to_i32
+        self.last_y = (index / size).to_i32
         spot.marked = true
         return true
       end
@@ -68,27 +74,20 @@ module Year2021::Day4
     end
 
     def winner? : Bool
+      winner = true
       5.times do |y|
-        winner = true
-        5.times do |x|
-          winner = spot(x, y).marked
-          break if !winner
-        end
-
-        return true if winner
+        winner = spot(@last_x, y).marked
+        break if !winner
       end
+      return true if winner
 
+      winner = true
       5.times do |x|
-        winner = true
-        5.times do |y|
-          winner = spot(x, y).marked
-          break if !winner
-        end
-
-        return true if winner
+        winner = spot(x, @last_y).marked
+        break if !winner
       end
 
-      false
+      winner
     end
   end
 

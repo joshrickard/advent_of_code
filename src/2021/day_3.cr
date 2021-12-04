@@ -143,5 +143,5 @@ end
 
 input_path = "#{__DIR__}/input/#{File.basename(__FILE__, ".cr")}.txt"
 
-Utils::Runner.run(Year2021::Day3::Part1, input_path) if ARGV.size.positive? && ARGV.first == "part1"
-Utils::Runner.run(Year2021::Day3::Part2, input_path) if ARGV.size.positive? && ARGV.first == "part2"
+Utils::Runner.run(input_path, Year2021::Day3::Part1) if ARGV.size.positive? && ARGV.first == "part1"
+Utils::Runner.run(input_path, Year2021::Day3::Part2) if ARGV.size.positive? && ARGV.first == "part2"

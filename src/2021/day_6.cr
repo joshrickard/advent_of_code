@@ -4,32 +4,23 @@ require "../utils/runner"
 
 module Year2021::Day6
   class Simulation
-    private property lantern_fish_counts_by_age : Hash(Int32, Int64)
+    private property lantern_fish_counts : Array(Int64)
 
     def initialize(lantern_fish_ages : Array(Int32))
-      @lantern_fish_counts_by_age = Hash(Int32, Int64).new(0)
+      @lantern_fish_counts = Array(Int64).new(9, 0)
+
       lantern_fish_ages.each do |age|
-        lantern_fish_counts_by_age[age] += 1
+        lantern_fish_counts[age] += 1
       end
     end
 
-    def run(generations : Int32) : Int64
-      generations.times do |i|
-        next_generation = Hash(Int32, Int64).new(0)
-
-        lantern_fish_counts_by_age.each do |age, count|
-          if age == 0
-            next_generation[6] += count
-            next_generation[8] += count
-          else
-            next_generation[age - 1] += count
-          end
-        end
-
-        self.lantern_fish_counts_by_age = next_generation
+    def run(generations : Int32)
+      generations.times do
+        lantern_fish_counts.rotate!(1)
+        lantern_fish_counts[6] += lantern_fish_counts[8]
       end
 
-      lantern_fish_counts_by_age.values.sum
+      lantern_fish_counts.sum
     end
   end
 

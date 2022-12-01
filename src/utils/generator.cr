@@ -44,7 +44,10 @@ class InputFile < AdventFile
   def to_s : String
     response = HTTP::Client.get(
       url: remote_file_url,
-      headers: HTTP::Headers{"Cookie" => "session=#{session_cookie}"}
+      headers: HTTP::Headers{
+        "Cookie"     => "session=#{session_cookie}",
+        "User-Agent" => "github.com/joshrickard/advent_of_code josh.rickard@gmail.com",
+      }
     )
 
     return response.body if response.status_code == 200
